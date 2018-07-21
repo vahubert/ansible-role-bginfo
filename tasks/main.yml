@@ -1,0 +1,13 @@
+- name: Download file
+  get_url:
+    url: "{{ url }}"
+    dest: C:\Users\vagrant\
+
+- name: Modifying Registry
+  win_regedit:
+    data:  "{{ item.key }}"
+    name: "{{ item.name }}"
+    path: "{{ item.data }}"
+    type: "{{ item.type | default('string') }}"
+  with_items:
+    - { data: 'HKU\.DEFAULT\Software\Sysinternals\BGInfo', name: 'EulaAccepted', key: "C:\Users\vagrant\Bginfo.exe C:\Users\vagrant\template.bgi /TIMER:00 /nolicprompt", type: 'dword' }
